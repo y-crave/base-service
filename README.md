@@ -1,5 +1,11 @@
 # base-service
 
+## Что меняем при форке репы
+your-service/internal/config/config.go
+your-service/go.mod
+your-service/cmd/main.go
+
+
 ## Правила работы с репозиторием
 1. Работа с ветками (Git Flow Light)
    Используем упрощенную модель Git Flow. Основная ветка — main (или master). Любое изменение кода происходит через Pull Request (PR).
