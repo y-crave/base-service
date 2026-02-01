@@ -1,15 +1,16 @@
 package main
 
 import (
-	"base-service/internal/config"
-	"base-service/internal/controller"
-	"base-service/internal/service"
 	"database/sql"
 	"fmt"
-	"github.com/gorilla/mux"
-	_ "github.com/lib/pq"
 	"log"
 	"net/http"
+	"storage-service/internal/config"
+	"storage-service/internal/controller"
+	"storage-service/internal/service"
+
+	"github.com/gorilla/mux"
+	_ "github.com/lib/pq"
 )
 
 func main() {
