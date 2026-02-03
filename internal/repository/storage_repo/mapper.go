@@ -1,4 +1,4 @@
-package user_repo
+package storage_repo
 
 import (
 	"base-service/internal/domain"

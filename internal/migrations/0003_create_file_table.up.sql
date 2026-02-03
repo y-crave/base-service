@@ -12,14 +12,14 @@ CREATE TABLE files
 );
 
 COMMENT
-ON TABLE file IS 'Хранилище информации о файлах';
+ON TABLE files IS 'Хранилище информации о файлах';
 
-COMMENT ON COLUMN file.id IS 'Уникальный идентификатор файла';
-COMMENT ON COLUMN file.name IS 'Оригинальное имя файла';
-COMMENT ON COLUMN file.path IS 'Путь к файлу в хранилище Minio/S3';
-COMMENT ON COLUMN file.size IS 'Размер файла в байтах';
-COMMENT ON COLUMN file.mime_type IS 'MIME-тип файла';
-COMMENT ON COLUMN file.is_temp IS 'Является ли файл временным (True - временный, False - постоянный, загружен в Minio/S3)';
-COMMENT ON COLUMN file.created_at IS 'Дата и время создания записи в БД';
-COMMENT ON COLUMN file.updated_at IS 'Дата и время последнего обновления записи';
-COMMENT ON COLUMN file.deleted_at IS 'Мягкое удаление, NULL если запись активна';
+COMMENT ON COLUMN files.id IS 'Уникальный идентификатор файла';
+COMMENT ON COLUMN files.name IS 'Оригинальное имя файла';
+COMMENT ON COLUMN files.path IS 'Путь к файлу в хранилище Minio/S3';
+COMMENT ON COLUMN files.size IS 'Размер файла в байтах';
+COMMENT ON COLUMN files.mime_type IS 'MIME-тип файла';
+COMMENT ON COLUMN files.is_temp IS 'Является ли файл временным (True - временный, False - постоянный, загружен в Minio/S3)';
+COMMENT ON COLUMN files.created_at IS 'Дата и время создания записи в БД';
+COMMENT ON COLUMN files.updated_at IS 'Дата и время последнего обновления записи';
+COMMENT ON COLUMN files.deleted_at IS 'Мягкое удаление, NULL если запись активна';
