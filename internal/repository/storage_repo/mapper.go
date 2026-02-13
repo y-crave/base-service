@@ -1,7 +1,7 @@
-package user_repo
+package storage_repo
 
 import (
-	"base-service/internal/domain"
+	"storage-service/internal/domain"
 )
 
 func StorageToDomain(storage *Storage) domain.Storage {
