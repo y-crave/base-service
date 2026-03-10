@@ -1,11 +1,11 @@
 package config
 
 import (
-	"base-service/internal/errors"
 	"fmt"
 	"log/slog"
 	"net/url"
 	"os"
+	"storage-service/internal/errors"
 	"strings"
 
 	"github.com/joho/godotenv"
@@ -112,7 +112,7 @@ func Load() (*Config, error) {
 }
 
 func setDefaults() {
-	viper.SetDefault("APP_NAME", "base-service")
+	viper.SetDefault("APP_NAME", "storage-service")
 	viper.SetDefault("HTTP_HOST", "0.0.0.0") // Слушать все интерфейсы
 	viper.SetDefault("HTTP_PORT", 8080)      // Стандартный HTTP порт
 	viper.SetDefault("GRPC_PORT", 9090)      // Стандартный gRPC порт
@@ -129,9 +129,9 @@ func setDefaults() {
 	viper.SetDefault("DB_PORT", 5432)     // Стандартный порт PostgreSQL
 	viper.SetDefault("DB_USE_TLS", false) // Без TLS по умолчанию
 
-	viper.SetDefault("REDIS_PREFIX", "base-service")
+	viper.SetDefault("REDIS_PREFIX", "storage-service")
 
-	viper.SetDefault("KAFKA_GROUP_ID", "base-service-group")
+	viper.SetDefault("KAFKA_GROUP_ID", "storage-service-group")
 }
 
 func validateRequired(cfg *Config) error {

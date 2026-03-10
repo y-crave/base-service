@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"base-service/internal/logger"
 	"log/slog"
 	"net/http"
+	"storage-service/internal/logger"
 	"strings"
 	"time"
 
