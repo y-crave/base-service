@@ -18,8 +18,11 @@ import (
 )
 
 func main() {
-	cfg := config.Load()
-
+	cfg, err := config.Load()
+	if err != nil {
+		fmt.Errorf(err.Error())
+		os.Exit(1)
+	}
 	appLogger := logger.NewLogger(cfg.LogLevel)
 	slog.SetDefault(appLogger)
 
@@ -43,7 +46,7 @@ func main() {
 	router := mainRouter.PathPrefix(apiPrefix).Subrouter()
 	monitoringController.RegisterRoutes(router)
 
-	addr := fmt.Sprintf("%s:%d", cfg.AppHost, cfg.AppHttpPort)
+	addr := fmt.Sprintf("%s:%d", cfg.HttpHost, cfg.HttpPort)
 	handler := middleware.LoggingMiddleware(router)
 
 	middleware.PrintRoutes(router)
