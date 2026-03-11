@@ -1,12 +1,11 @@
 package config
 
 import (
+	"github.com/gorilla/mux"
 	"log/slog"
 	"net/http"
 	"strings"
 	"time"
-
-	"github.com/gorilla/mux"
 )
 
 type loggingResponseWriter struct {

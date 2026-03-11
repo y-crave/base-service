@@ -10,11 +10,11 @@ CREATE TABLE storages
     deleted_at    TIMESTAMP WITH TIME ZONE DEFAULT NULL
 );
 
-COMMENT ON TABLE storages IS 'Хранилище информации о buckets из Minio/S3';
+COMMENT ON TABLE storage IS 'Хранилище информации о buckets из Minio/S3';
 
-COMMENT ON COLUMN storages.id IS 'Уникальный идентификатор хранилища';
-COMMENT ON COLUMN storages.bucket_name IS 'Название бакета в Minio/S3';
-COMMENT ON COLUMN storages.service_owner IS 'Владелец/сервис, которому принадлежит бакет';
-COMMENT ON COLUMN storages.created_at IS 'Дата и время создания записи';
-COMMENT ON COLUMN storages.updated_at IS 'Дата и время последнего обновления';
-COMMENT ON COLUMN storages.deleted_at IS 'Мягкое удаление, NULL если запись активна';
+COMMENT ON COLUMN storage.id IS 'Уникальный идентификатор хранилища';
+COMMENT ON COLUMN storage.bucket_name IS 'Название бакета в Minio/S3';
+COMMENT ON COLUMN storage.service_owner IS 'Владелец/сервис, которому принадлежит бакет';
+COMMENT ON COLUMN storage.created_at IS 'Дата и время создания записи';
+COMMENT ON COLUMN storage.updated_at IS 'Дата и время последнего обновления';
+COMMENT ON COLUMN storage.deleted_at IS 'Мягкое удаление, NULL если запись активна';

@@ -1,12 +1,12 @@
 package controller
 
 import (
+	"base-service/internal/service"
 	"context"
-	"net/http"
-	"storage-service/internal/service"
-	"time"
-
 	"github.com/gorilla/mux"
+	"log"
+	"net/http"
+	"time"
 )
 
 type MonitoringController struct {
@@ -19,11 +19,9 @@ func NewMonitoringController(service service.MonitoringService) *MonitoringContr
 
 func (c *MonitoringController) LivenessProbe(w http.ResponseWriter, r *http.Request) {
 	// Простая проверка: если сервер запущен — OK
+	log.Println("GET /healthz")
 	w.WriteHeader(http.StatusOK)
-	_, err := w.Write([]byte("alive"))
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-	}
+	w.Write([]byte("alive"))
 }
 
 func (c *MonitoringController) ReadinessProbe(w http.ResponseWriter, r *http.Request) {
@@ -39,10 +37,7 @@ func (c *MonitoringController) ReadinessProbe(w http.ResponseWriter, r *http.Req
 	// TODO: добавить проверку других зависимостей: Redis, Kafka и т.д.
 
 	w.WriteHeader(http.StatusOK)
-	_, err := w.Write([]byte("ready"))
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-	}
+	w.Write([]byte("ready"))
 }
 
 func (c *MonitoringController) RegisterRoutes(router *mux.Router) {

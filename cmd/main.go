@@ -1,41 +1,25 @@
 package main
 
 import (
+	"base-service/internal/config"
+	"base-service/internal/controller"
+	"base-service/internal/service"
 	"database/sql"
-	"log/slog"
-	"os"
-	"storage-service/internal/config"
-	"storage-service/internal/controller"
-	"storage-service/internal/logger"
-	"storage-service/internal/middleware"
-	"storage-service/internal/service"
-
 	"fmt"
-	"net/http"
-
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
+	"log"
+	"net/http"
 )
 
 func main() {
-	cfg, err := config.Load()
-	if err != nil {
-		fmt.Errorf(err.Error())
-		os.Exit(1)
-	}
-	appLogger := logger.NewLogger(cfg.LogLevel)
-	slog.SetDefault(appLogger)
+	cfg := config.Load()
 
 	db, err := sql.Open("postgres", cfg.PostgresDSN)
 	if err != nil {
-		slog.Default().Error("Failed to connect to DB", err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
-	defer func() {
-		if err := db.Close(); err != nil {
-			slog.Default().Error("Failed to close DB", err)
-		}
-	}()
+	defer db.Close()
 
 	monitoringService := service.NewMonitoringService(db)
 	monitoringController := controller.NewMonitoringController(monitoringService)
@@ -46,10 +30,10 @@ func main() {
 	router := mainRouter.PathPrefix(apiPrefix).Subrouter()
 	monitoringController.RegisterRoutes(router)
 
-	addr := fmt.Sprintf("%s:%d", cfg.HttpHost, cfg.HttpPort)
-	handler := middleware.LoggingMiddleware(router)
+	addr := fmt.Sprintf("%s:%d", cfg.AppHost, cfg.AppHttpPort)
+	handler := config.LoggingMiddleware(router)
 
-	middleware.PrintRoutes(router)
-	slog.Default().Info("Server started:", "address", addr)
-	slog.Default().Error("Fatal", "error", http.ListenAndServe(addr, handler))
+	config.PrintRoutes(router)
+	log.Printf("Server started: %s", addr)
+	log.Fatal(http.ListenAndServe(addr, handler))
 }
