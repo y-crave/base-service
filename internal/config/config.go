@@ -66,6 +66,9 @@ type Config struct {
 	RedisPref    string `mapstructure:"REDIS_PREFIX"`
 	KafkaHost    string `mapstructure:"KAFKA_HOST"`
 	KafkaGroupID string `mapstructure:"KAFKA_GROUP_ID"`
+
+	// DevTrustHeaders enables unsafe Bearer JWT payload decoding when X-User-Id is absent (local dev only).
+	DevTrustHeaders bool `mapstructure:"DEV_TRUST_HEADERS"`
 }
 
 func Load() (*Config, error) {
@@ -100,7 +103,6 @@ func Load() (*Config, error) {
 	cfg.PostgresDSN = fmt.Sprintf(
 		"postgres://%s:%s@%s:%d/%s?sslmode=%s",
 		user, password, cfg.DbHost, cfg.DbPort, cfg.DbName, sslmode,
-		"postgres://%s:%s@%s:%d/%s?sslmode=%s", user, password, cfg.DbHost, cfg.DbPort, cfg.DbName, sslmode,
 	)
 
 	log.Info("✓ config loaded",
@@ -132,6 +134,8 @@ func setDefaults() {
 	viper.SetDefault("REDIS_PREFIX", "base-service")
 
 	viper.SetDefault("KAFKA_GROUP_ID", "base-service-group")
+
+	viper.SetDefault("DEV_TRUST_HEADERS", false)
 }
 
 func validateRequired(cfg *Config) error {
